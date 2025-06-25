@@ -175,7 +175,7 @@ def load_image_from_base64(uri: str) -> np.ndarray:
     # content type is safer option than file extension
     with Image.open(io.BytesIO(decoded_bytes)) as img:
         file_type = img.format.lower()
-        if file_type not in {"jpeg", "png"}:
+        if file_type not in {"jpeg", "png", "webp"}:
             raise ValueError(f"Input image can be jpg or png, but it is {file_type}")
 
     nparr = np.frombuffer(decoded_bytes, np.uint8)

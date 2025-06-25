@@ -13,9 +13,9 @@ from deepface.models.FacialRecognition import FacialRecognition
 
 def represent(
     img_path: Union[str, IO[bytes], np.ndarray, Sequence[Union[str, np.ndarray, IO[bytes]]]],
-    model_name: str = "VGG-Face",
-    enforce_detection: bool = True,
-    detector_backend: str = "opencv",
+    model_name: str = "Facenet512",
+    enforce_detection: bool = False,
+    detector_backend: str = "retinaface",
     align: bool = True,
     expand_percentage: int = 0,
     normalization: str = "base",
@@ -173,5 +173,5 @@ def represent(
         )
 
     resp_objs = [resp_objs_dict[idx] for idx in range(len(images))]
-
+    print(f"Found {len(resp_objs)} faces")
     return resp_objs[0] if len(images) == 1 else resp_objs
