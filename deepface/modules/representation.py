@@ -173,5 +173,5 @@ def represent(
         )
 
     resp_objs = [resp_objs_dict[idx] for idx in range(len(images))]
-
+    print(f"Found {len(resp_objs)} faces")
     return resp_objs[0] if len(images) == 1 else resp_objs
