@@ -17,7 +17,7 @@ def parsenp(obj):
     return int(obj)
   return obj
 
-app = FaceAnalysis(name='buffalo_l', silent=True)
+app = FaceAnalysis(name='buffalo_l', providers=['CPUExecutionProvider'], silent=True)
 app.prepare(ctx_id=-1)
 
 def represent(img_path: str) -> Any:
@@ -36,15 +36,31 @@ def represent(img_path: str) -> Any:
       "y": bbox[1],
       "w": bbox[2] - bbox[0],
       "h": bbox[3] - bbox[1],
-      "age": parsenp(face['age']),
-      "gender": parsenp(face['gender'])
     }
+    age = parsenp(face['age']),
+    gender = parsenp(face['gender'])
+    # landmark_2d = parsenp(face['landmark_2d_106'])
+    # landmark_3d = parsenp(face['landmark_3d_68'])
+    # right_eye = parsenp(face['right_eye']),
+    # left_eye = parsenp(face['left_eye']),
+    # nose = parsenp(face['nose']),
+    # mouth_left = parsenp(face['mouth_left']),
+    # mouth_right = parsenp(face['mouth_right']),
     face_confidence = parsenp(face['det_score'])
     data = {
       "facial_area": facial_area,
+      "age": age,
+      "gender": gender,
+      # "right_eye": right_eye,
+      # "left_eye": left_eye,
+      # "nose": nose,
+      # "mouth_left": mouth_left,
+      # "mouth_right": mouth_right,
+      # "landmark_2d": landmark_2d,
+      # "landmark_3d": landmark_3d,
       "face_confidence": face_confidence,
       "embedding": embedding,
     }
     resp_objs.append(data)
-    print(data['facial_area'])
+    
   return resp_objs
