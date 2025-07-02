@@ -7,9 +7,8 @@ import numpy as np
 
 # project dependencies
 from deepface.commons import image_utils
-from deepface.modules import modeling, detection, preprocessing
+from deepface.modules import modeling, detection, preprocessing, buffalo
 from deepface.models.FacialRecognition import FacialRecognition
-
 
 def represent(
     img_path: Union[str, IO[bytes], np.ndarray, Sequence[Union[str, np.ndarray, IO[bytes]]]],
@@ -68,6 +67,9 @@ def represent(
         - face_confidence (float): Confidence score of face detection. If `detector_backend` is set
             to 'skip', the confidence will be 0 and is nonsensical.
     """
+    if model_name.lower() == "buffalo_l":
+        return buffalo.represent(img_path)
+    
     resp_objs = []
 
     model: FacialRecognition = modeling.build_model(

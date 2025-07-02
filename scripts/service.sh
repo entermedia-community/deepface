@@ -5,4 +5,4 @@ cd ../deepface/api/src
 # python api.py
 
 # run the service with gunicorn - for prod purposes
-gunicorn --workers=1 --timeout=3600 --bind=127.0.0.1:5000 "app:create_app()"
+gunicorn --workers=1 --timeout=3600 --bind=127.0.0.1:5000 --log-level=debug "app:create_app()"
