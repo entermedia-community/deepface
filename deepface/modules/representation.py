@@ -7,15 +7,14 @@ import numpy as np
 
 # project dependencies
 from deepface.commons import image_utils
-from deepface.modules import modeling, detection, preprocessing
+from deepface.modules import modeling, detection, preprocessing, buffalo
 from deepface.models.FacialRecognition import FacialRecognition
-
 
 def represent(
     img_path: Union[str, IO[bytes], np.ndarray, Sequence[Union[str, np.ndarray, IO[bytes]]]],
-    model_name: str = "Facenet512",
+    model_name: str = "VGG-Face",
     enforce_detection: bool = False,
-    detector_backend: str = "retinaface",
+    detector_backend: str = "opencv",
     align: bool = True,
     expand_percentage: int = 0,
     normalization: str = "base",
@@ -68,6 +67,9 @@ def represent(
         - face_confidence (float): Confidence score of face detection. If `detector_backend` is set
             to 'skip', the confidence will be 0 and is nonsensical.
     """
+    if model_name.lower() == "buffalo_l":
+        return buffalo.represent(img_path)
+    
     resp_objs = []
 
     model: FacialRecognition = modeling.build_model(
@@ -174,4 +176,6 @@ def represent(
 
     resp_objs = [resp_objs_dict[idx] for idx in range(len(images))]
     print(f"Found {len(resp_objs)} faces")
+    for obj in resp_objs:
+        print(obj)
     return resp_objs[0] if len(images) == 1 else resp_objs
