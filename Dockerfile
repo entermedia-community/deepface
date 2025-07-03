@@ -53,7 +53,6 @@ RUN pip install -r /app/requirements.txt
 RUN pip install insightface 
 RUN pip install onnxruntime 
 RUN pip install typing-extensions==4.13.2 pydantic==2.10.6 albumentations==1.4.18
-RUN pip install Cython==3.1.2
 # -----------------------------------
 # some packages are optional in deepface. activate if your task depends on one.
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org cmake==3.24.1.1
