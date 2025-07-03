@@ -46,14 +46,17 @@ COPY ./entrypoint.sh /app/deepface/api/src/entrypoint.sh
 # -----------------------------------
 # install dependencies - deepface with these dependency versions is working
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org -r /app/requirements_local.txt
-RUN pip install -r /app/requirements.txt
-RUN pip install insightface onnxruntime typing-extensions==4.13.2 pydantic==2.10.6 albumentations==1.4.18
 # install deepface from source code (always up-to-date)
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org -e .
+RUN pip install -r /app/requirements.txt
+
+RUN pip install insightface 
+RUN pip install onnxruntime 
+RUN pip install typing-extensions==4.13.2 pydantic==2.10.6 albumentations==1.4.18
 RUN pip install numpy==1.24.4 
 # -----------------------------------
 # some packages are optional in deepface. activate if your task depends on one.
-# RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org cmake==3.24.1.1
+RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org cmake==3.24.1.1
 # RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org dlib==19.20.0
 # RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org lightgbm==2.3.1
 
